@@ -1,3 +1,5 @@
+use modulee_engine::graph::Graph;
+
 pub fn add(left: u64, right: u64) -> u64 {
     left + right
 }
@@ -10,5 +12,11 @@ mod tests {
     fn it_works() {
         let result = add(2, 2);
         assert_eq!(result, 4);
+    }
+
+    #[test]
+    fn some_import() {
+        let graph = Graph::new();
+        print!("{:?}", graph);
     }
 }
