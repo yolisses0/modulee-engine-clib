@@ -3,6 +3,10 @@ name = "modulee-engine-clib"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "modulee_engine"
+crate-type = ["staticlib"]
+
 [dependencies]
 modulee-engine = { path = "vendor/modulee-engine" }
 
