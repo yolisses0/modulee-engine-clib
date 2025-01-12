@@ -1,4 +1,7 @@
-use std::slice;
+use std::{
+    ffi::{c_char, CStr},
+    slice,
+};
 
 pub struct Graph {
     graph: modulee_engine::graph::Graph,
@@ -8,6 +11,15 @@ impl Graph {
     #[no_mangle]
     pub extern "C" fn get_debug_value(&self) -> f32 {
         self.graph.get_debug_value()
+    }
+
+    #[no_mangle]
+    pub extern "C" fn set_debug_string(&mut self, pointer: *const c_char) {
+        let c_str = unsafe { CStr::from_ptr(pointer) };
+        let debug_string = c_str.to_str().expect("Bad encoding");
+        self.graph.set_debug_string(debug_string);
+        let string_value = self.graph.get_debug_string();
+        println!("string value: {}", string_value);
     }
 
     fn new() -> Self {
