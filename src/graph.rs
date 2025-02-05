@@ -39,4 +39,14 @@ impl Graph {
         let buffer = unsafe { slice::from_raw_parts_mut(buffer, length) };
         self.graph.process_block(buffer, length);
     }
+
+    #[no_mangle]
+    pub extern "C" fn set_note_on(&mut self, pitch: f32) {
+        self.graph.set_note_on(pitch);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn set_note_off(&mut self, pitch: f32) {
+        self.graph.set_note_off(pitch);
+    }
 }
