@@ -8,15 +8,6 @@ pub struct Graph {
 }
 
 impl Graph {
-    #[no_mangle]
-    pub extern "C" fn set_nodes(&mut self, nodes_data: *const c_char) {
-        let c_str = unsafe { CStr::from_ptr(nodes_data) };
-        let nodes_json = c_str.to_str().expect("Bad encoding");
-        if let Err(e) = self.graph.set_nodes_from_json(nodes_json) {
-            eprintln!("Failed to set nodes from JSON: {}\n{}", e, nodes_json);
-        }
-    }
-
     fn new() -> Self {
         Self {
             graph: modulee_engine::graph::Graph::new(),
@@ -48,5 +39,19 @@ impl Graph {
     #[no_mangle]
     pub extern "C" fn set_note_off(&mut self, pitch: f32) {
         self.graph.set_note_off(pitch);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn set_groups(&mut self, groups_data: *const c_char) {
+        let c_str = unsafe { CStr::from_ptr(groups_data) };
+        let groups_json = c_str.to_str().expect("Bad encoding");
+        if let Err(e) = self.graph.set_groups_from_json(groups_json) {
+            eprintln!("Failed to set groups from JSON: {}\n{}", e, groups_json);
+        }
+    }
+
+    #[no_mangle]
+    pub extern "C" fn set_main_group_id(&mut self, main_group_id: usize) {
+        self.graph.set_main_group_id(main_group_id);
     }
 }
