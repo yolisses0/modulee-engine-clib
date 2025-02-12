@@ -51,7 +51,7 @@ impl Graph {
     }
 
     #[no_mangle]
-    pub extern "C" fn set_main_group_id(&mut self, main_group_id: usize) {
-        self.graph.set_main_group_id(main_group_id);
+    pub extern "C" fn set_main_group_id(&mut self, main_group_id: u64) {
+        self.graph.set_main_group_id(main_group_id as usize);
     }
 }
