@@ -4,13 +4,13 @@ use std::{
 };
 
 pub struct Graph {
-    graph: modulee_engine::graph::Graph,
+    graph: modulee_engine::Graph,
 }
 
 impl Graph {
     fn new() -> Self {
         Self {
-            graph: modulee_engine::graph::Graph::new(),
+            graph: modulee_engine::Graph::new(),
         }
     }
 
