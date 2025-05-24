@@ -10,7 +10,7 @@ pub struct Graph {
 impl Graph {
     fn new() -> Self {
         Self {
-            graph: modulee_engine::Graph::new(),
+            graph: modulee_engine::Graph::default(),
         }
     }
 
