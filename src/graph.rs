@@ -3,6 +3,8 @@ use std::{
     slice,
 };
 
+use modulee_engine::ControlUpdateData;
+
 pub struct Graph {
     graph: modulee_engine::Graph,
 }
@@ -48,5 +50,10 @@ impl Graph {
     #[no_mangle]
     pub extern "C" fn set_note_off(&mut self, pitch: f32) {
         self.graph.set_note_off(pitch);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn update_control(&mut self, id: usize, value: f32) {
+        self.graph.update_control(&ControlUpdateData { id, value });
     }
 }
