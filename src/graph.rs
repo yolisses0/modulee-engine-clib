@@ -1,9 +1,8 @@
+use modulee_engine::ControlUpdateData;
 use std::{
     ffi::{c_char, CStr},
     slice,
 };
-
-use modulee_engine::ControlUpdateData;
 
 pub struct Graph {
     graph: modulee_engine::Graph,
