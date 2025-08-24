@@ -1,11 +1,14 @@
 use modulee_engine::ControlUpdateData;
-use std::{
-    ffi::{c_char, CStr},
-    slice,
-};
+use std::ffi::{c_char, CStr};
 
 pub struct Graph {
     graph: modulee_engine::Graph,
+}
+
+#[repr(C)]
+pub struct Outputs {
+    output_0: f32,
+    output_1: f32,
 }
 
 impl Graph {
@@ -36,9 +39,17 @@ impl Graph {
     }
 
     #[no_mangle]
-    pub extern "C" fn process_block(&mut self, buffer: *mut f32, length: usize) {
-        let buffer = unsafe { slice::from_raw_parts_mut(buffer, length) };
-        self.graph.process_block(buffer, length);
+    pub extern "C" fn process(&mut self) {
+        self.graph.process();
+    }
+
+    #[no_mangle]
+    pub extern "C" fn get_outputs(&self) -> Outputs {
+        let outputs = self.graph.get_output_values();
+        Outputs {
+            output_0: outputs.0,
+            output_1: outputs.1,
+        }
     }
 
     #[no_mangle]
