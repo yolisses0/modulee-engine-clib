@@ -12,15 +12,15 @@ pub struct Outputs {
 }
 
 impl Graph {
-    fn new() -> Self {
+    fn new(sample_rate: f32) -> Self {
         Self {
-            graph: modulee_engine::Graph::default(),
+            graph: modulee_engine::Graph::new(sample_rate),
         }
     }
 
     #[no_mangle]
-    pub extern "C" fn create_graph_pointer() -> *mut Self {
-        Box::into_raw(Box::new(Self::new()))
+    pub extern "C" fn create_graph_pointer(sample_rate: f32) -> *mut Self {
+        Box::into_raw(Box::new(Self::new(sample_rate)))
     }
 
     #[no_mangle]
@@ -60,6 +60,11 @@ impl Graph {
     #[no_mangle]
     pub extern "C" fn set_note_off(&mut self, pitch: f32) {
         self.graph.set_note_off(pitch);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn set_sample_rate(&mut self, sample_rate: f32) {
+        self.graph.set_sample_rate(sample_rate);
     }
 
     #[no_mangle]
